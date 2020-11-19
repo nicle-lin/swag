@@ -1204,6 +1204,14 @@ func (parser *Parser) parseField(field *ast.Field) (*structField, error) {
 			structField.arrayType = newArrayType
 		}
 	}
+
+	if descTag := structTag.Get("desc"); descTag != "" {
+		structField.desc = descTag
+	}
+	if descTag := structTag.Get("description"); descTag != "" {
+		structField.desc = descTag
+	}
+
 	if exampleTag := structTag.Get("example"); exampleTag != "" {
 		example, err := defineTypeOfExample(structField.schemaType, structField.arrayType, exampleTag)
 		if err != nil {
